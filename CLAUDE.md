@@ -56,7 +56,7 @@ Lab-design tests (Gate 2): **naive prompt fails** ("fix the bug" / "make it work
 
 ## The 9 habits (slide spine; keep numbering stable — LABS.md and cheat sheet reference it)
 
-1 Context first · 2 Symptom, not diagnosis · 3 Reproduce, paste real output · 4 Plan + assumptions before code · 5 One change at a time · 6 Verify every claim · 7 Read the diff, own the decision · 8 Fresh chat when context rots · 9 Budget your messages
+1 Context first · 2 Symptom, not diagnosis · 3 Reproduce, paste real output · 4 Plan + assumptions before code · 5 One intention per request · 6 Verify before you believe · 7 Read the diff, own the decision · 8 Fresh chat when context rots · 9 Budget your messages
 
 ## Code conventions
 

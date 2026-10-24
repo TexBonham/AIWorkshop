@@ -2,7 +2,7 @@
 
 [![Slides](https://img.shields.io/badge/slides-GitHub%20Pages-2f6fde)](https://texbonham.github.io/AIWorkshop/)
 
-Welcome! This repository holds everything for a 72-minute, hands-on workshop for undergraduates on **directing an AI coding assistant properly**: give it context, describe symptoms instead of guessing causes, make it plan and list its assumptions before it codes, change one thing at a time, verify every claim, and keep the decisions yourself. You'll use a **free Claude account in your browser** and any plain-text editor. Nothing to install. Three short labs are built so that "just fix it" fails and the workflow works.
+Welcome! This repository holds everything for a 72-minute, hands-on workshop for undergraduates on **directing an AI coding assistant properly**: give it context, describe symptoms instead of guessing causes, make it plan and list its assumptions before it codes, work in steps you can check, verify before believing, and keep the decisions yourself. You'll use a **free Claude account in your browser** and any plain-text editor. Nothing to install. Three short labs are built so that "just fix it" fails and the workflow works.
 
 ## Start here
 

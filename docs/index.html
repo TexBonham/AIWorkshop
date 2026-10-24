@@ -215,15 +215,16 @@ What I expected: $24.00 each ((60 + 12) / 3)</code></pre>
 
 <section class="slide">
   <div class="kicker">Habits 5 and 6</div>
-  <h2>Small changes, checked by you</h2>
+  <h2>Steps you can check</h2>
   <div class="cols">
-    <div class="card"><h3><span class="habit">5</span> One change at a time</h3><p>Ask for the smallest change. Forbid refactors you didn't ask for. "Show me only the changed lines."</p></div>
-    <div class="card"><h3><span class="habit">6</span> Verify every claim</h3><p>"Fixed" means nothing until <strong>your</strong> tests say so. Save, re-run, then report the real result back.</p></div>
+    <div class="card"><h3><span class="habit">5</span> One intention per request</h3><p>Size the step to what you can still check: a line in a small file, a tested feature in a big one. Forbid changes you didn't ask for. "Show me only the changed lines."</p></div>
+    <div class="card"><h3><span class="habit">6</span> Verify before you believe</h3><p>"Fixed" is a claim, not evidence. <strong>Your</strong> tests or checklist decide, at the point where checking is cheap. Report the real result back.</p></div>
   </div>
   <p class="small">Skeletons <span class="skel">#3</span> approve steps 1–3 only · <span class="skel">#4</span> report back · <span class="skel">#8</span> fix only these</p>
   <aside class="notes">
     <ul>
       <li>[~9:40] Every lab has a tests page or a checklist. Its verdict beats the assistant's.</li>
+      <li>Scale: today a step is a line and you check after every edit, because the files are tiny. On a real project a step is a feature behind a test, and the check is one full run at the end of a stage. The size changes; "one intention" and "something other than the assistant decides" never do.</li>
       <li>If it says "fixed" and the test is red, don't argue in prose: paste the red lines (#4).</li>
     </ul>
   </aside>
@@ -474,8 +475,8 @@ alternative. Then tell me which you'd pick and why. No code.</code></pre>
   <div class="table-wrap">
   <table class="simple">
     <tr><td><span class="habit">1</span> Context first</td><td><span class="habit">4</span> Plan + assumptions before code</td><td><span class="habit">7</span> Read the diff, own the decision</td></tr>
-    <tr><td><span class="habit">2</span> Symptom, not diagnosis</td><td><span class="habit">5</span> One change at a time</td><td><span class="habit">8</span> Fresh chat when context rots</td></tr>
-    <tr><td><span class="habit">3</span> Reproduce, paste real output</td><td><span class="habit">6</span> Verify every claim</td><td><span class="habit">9</span> Budget your messages</td></tr>
+    <tr><td><span class="habit">2</span> Symptom, not diagnosis</td><td><span class="habit">5</span> One intention per request</td><td><span class="habit">8</span> Fresh chat when context rots</td></tr>
+    <tr><td><span class="habit">3</span> Reproduce, paste real output</td><td><span class="habit">6</span> Verify before you believe</td><td><span class="habit">9</span> Budget your messages</td></tr>
   </table>
   </div>
   <p class="lead">You direct. It types. Your tests decide.</p>

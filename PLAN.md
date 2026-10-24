@@ -4,7 +4,7 @@ Status: **signed off 2026-10-24 (Gate 1)**; labs and materials built the same da
 
 ## 1. One-paragraph summary
 
-A 72-minute, hands-on, in-person workshop for undergraduates on **directing an AI coding assistant properly**: give it context, state symptoms not diagnoses, make it plan and list assumptions before it codes, change one thing at a time, verify everything, and keep the decisions yourself. Attendees use a **free Claude account in a browser**, any OS, any browser, any text editor. Three mini-labs, each designed so that "fix it" / "build it" fails and the workflow succeeds. Slides follow the GithubWorkshop deck framework; nothing else from that workshop carries over (no shared repo, no CI check, no Git prerequisite, no closing poll).
+A 72-minute, hands-on, in-person workshop for undergraduates on **directing an AI coding assistant properly**: give it context, state symptoms not diagnoses, make it plan and list assumptions before it codes, work in steps you can check, verify before believing, and keep the decisions yourself. Attendees use a **free Claude account in a browser**, any OS, any browser, any text editor. Three mini-labs, each designed so that "fix it" / "build it" fails and the workflow succeeds. Slides follow the GithubWorkshop deck framework; nothing else from that workshop carries over (no shared repo, no CI check, no Git prerequisite, no closing poll).
 
 ## 2. Key constants
 
@@ -46,8 +46,8 @@ Drawn from the maintainer's own practice (plan sign-off with assumptions, checkl
 | 2 | Symptom, not diagnosis | Say what you saw and expected; don't guess the cause for it. |
 | 3 | Reproduce, then paste the real output | Failing test text or exact wrong output beats a description. Text, not screenshots. |
 | 4 | Plan before code, with assumptions | "List your assumptions and a plan. Don't write code yet." Correct the assumptions, then approve. |
-| 5 | One change at a time | Ask for the smallest change; forbid refactors you didn't ask for. |
-| 6 | Verify every claim | "Fixed" means nothing until **your** tests say so. Re-run, then report back the real result. |
+| 5 | One intention per request | Size the step to what you can still check: a line in a small file, a tested feature in a big one. Forbid changes you didn't ask for. |
+| 6 | Verify before you believe | "Fixed" is a claim, not evidence. Tests or a checklist decide, at the cheapest honest checkpoint: every edit in the labs, the end of a stage on a big project. |
 | 7 | Read the diff, own the decision | You are the reviewer. Ask it to argue against its own choice when it matters. |
 | 8 | Fresh chat when context rots | Long chats drift and cost more. New lab = new chat. |
 | 9 | Budget your messages | Each wasted "still broken" is a message you don't get back. Each lab has a spend plan. |
