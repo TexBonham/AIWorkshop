@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Campus events</title>
+<style>
+  :root { --ink: #1d1d1f; --muted: #666; --line: #e3e3e6; --accent: #2f6fde; --bg: #fff; --card: #f6f7f9; }
+  body { font-family: system-ui, sans-serif; margin: 2rem auto; max-width: 52rem; padding: 0 1rem; color: var(--ink); background: var(--bg); }
+  h1 { font-size: 1.6rem; margin-bottom: .2rem; }
+  p.lead { color: var(--muted); margin-top: 0; }
+  .controls { display: flex; flex-wrap: wrap; gap: .8rem; align-items: center; margin: 1rem 0 1.5rem; }
+  .controls input[type="search"] { flex: 1 1 14rem; font: inherit; padding: .5rem .7rem; border: 1px solid var(--line); border-radius: .4rem; }
+  .controls select { font: inherit; padding: .45rem .5rem; border: 1px solid var(--line); border-radius: .4rem; background: #fff; }
+  .controls label { font-size: .95rem; display: flex; gap: .3rem; align-items: center; }
+  h2 { font-size: 1rem; color: var(--muted); margin: 1.4rem 0 .5rem; text-transform: uppercase; letter-spacing: .04em; }
+  .event { display: grid; grid-template-columns: 6rem 1fr; gap: .4rem 1rem; padding: .7rem .9rem; border: 1px solid var(--line); border-radius: .5rem; margin: .5rem 0; background: var(--card); }
+  .event .time { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .event .title { font-weight: 600; }
+  .event .meta { grid-column: 2; font-size: .9rem; color: var(--muted); }
+  .tag { display: inline-block; font-size: .78rem; background: #e8eefb; color: #27478f; border-radius: 999px; padding: .1rem .55rem; margin-right: .3rem; }
+  mark { background: #ffe88a; padding: 0 .1em; }
+  .count { color: var(--muted); font-size: .95rem; }
+  .empty { padding: 2rem; text-align: center; color: var(--muted); }
+</style>
+</head>
+<body>
+<h1>Campus events</h1>
+<p class="lead">What's on this month. Search, filter by tag, or show only what's coming up.</p>
+
+<div class="controls">
+  <input type="search" id="query" placeholder="Search events…" autocomplete="off">
+  <select id="tag"><option value="">All tags</option></select>
+  <select id="sort">
+    <option value="date">Sort by date</option>
+    <option value="title">Sort by title</option>
+  </select>
+  <label><input type="checkbox" id="upcoming"> Upcoming only</label>
+</div>
+<div class="count" id="count"></div>
+<div id="list"></div>
+
+<script src="app.js"></script>
+<script>
+  const queryInput = document.getElementById("query");
+  const tagSelect = document.getElementById("tag");
+  const sortSelect = document.getElementById("sort");
+  const upcomingBox = document.getElementById("upcoming");
+  const list = document.getElementById("list");
+  const count = document.getElementById("count");
+
+  for (const tag of App.availableTags(App.EVENTS)) {
+    const option = document.createElement("option");
+    option.value = tag;
+    option.textContent = tag;
+    tagSelect.appendChild(option);
+  }
+
+  function todayIso() {
+    const d = new Date();
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    return d.getFullYear() + "-" + month + "-" + day;
+  }
+
+  function currentState() {
+    return {
+      query: queryInput.value,
+      tag: tagSelect.value,
+      upcomingOnly: upcomingBox.checked,
+      sort: sortSelect.value
+    };
+  }
+
+  function applyState(state) {
+    queryInput.value = state.query;
+    tagSelect.value = state.tag;
+    upcomingBox.checked = state.upcomingOnly;
+    sortSelect.value = state.sort;
+  }
+
+  function render() {
+    const state = currentState();
+    const newHash = App.writeState(state);
+    if (newHash !== location.hash) {
+      history.replaceState(null, "", newHash === "" ? location.pathname : newHash);
+    }
+    const results = App.search(App.EVENTS, state, todayIso());
+    list.innerHTML = "";
+    if (results.length === 0) {
+      list.innerHTML = '<div class="empty">Nothing matches. Try a different word or clear the tag filter.</div>';
+    }
+    count.textContent = results.length + " of " + App.EVENTS.length + " events";
+    let groups;
+    if (state.sort === "date") {
+      groups = App.groupByDay(results);
+    } else {
+      groups = [{ date: null, events: results }];
+    }
+    for (const group of groups) {
+      if (group.date !== null) {
+        const heading = document.createElement("h2");
+        heading.textContent = App.formatDate(group.date);
+        list.appendChild(heading);
+      }
+      for (const event of group.events) {
+        const card = document.createElement("div");
+        card.className = "event";
+        let when = App.formatTime(event.time);
+        if (group.date === null) {
+          when = App.formatDate(event.date) + " · " + when;
+        }
+        card.innerHTML =
+          '<div class="time">' + when + '</div>' +
+          '<div class="title">' + App.highlight(event.title, state.query) + '</div>' +
+          '<div class="meta">' + event.location + ' · ' +
+            event.tags.map(function (t) { return '<span class="tag">' + t + '</span>'; }).join("") +
+          '</div>';
+        list.appendChild(card);
+      }
+    }
+  }
+
+  applyState(App.readState(location.hash));
+  for (const el of [queryInput, tagSelect, sortSelect, upcomingBox]) {
+    el.addEventListener("input", render);
+    el.addEventListener("change", render);
+  }
+  window.addEventListener("hashchange", function () {
+    applyState(App.readState(location.hash));
+    render();
+  });
+  render();
+</script>
+</body>
+</html>

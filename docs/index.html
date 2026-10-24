@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Coding with AI</title>
+  <meta name="description" content="Slides for a 72-minute hands-on workshop on directing an AI coding assistant: give it context, make it plan, verify everything, keep the decisions yourself.">
+  <link rel="stylesheet" href="css/slides.css">
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<main class="deck">
+
+<!-- ===== Section 0: Welcome ===== -->
+<section class="slide title-slide" data-section="Welcome" data-at="0:00">
+  <div class="kicker">Hands-on workshop · 72 min</div>
+  <h1>Coding with AI:<br>Direct, Verify, Ship</h1>
+  <p class="lead">Get working code out of an AI assistant without letting it drive.</p>
+  <p class="small">Slides: <a href="https://texbonham.github.io/AIWorkshop/">texbonham.github.io/AIWorkshop</a> · Repo: <a href="https://github.com/TexBonham/AIWorkshop">github.com/TexBonham/AIWorkshop</a></p>
+  <aside class="notes">
+    <ul>
+      <li>[0:00] Welcome. Title is a placeholder; change it here and in the &lt;title&gt;.</li>
+      <li>Laptops open, signed in to claude.ai, repo ZIP downloaded. Anyone who skipped SETUP.md: hand up now, a helper comes to you.</li>
+      <li>Press N to hide these notes, F for fullscreen, T to reset the clock.</li>
+    </ul>
+  </aside>
+</section>
+
+<section class="slide">
+  <h2>Today, in 72 minutes</h2>
+  <div class="table-wrap">
+  <table class="simple">
+    <tr><th>Min</th><th>What</th><th>You</th></tr>
+    <tr><td>0–3</td><td>Welcome, budget warning, open the ZIP</td><td>follow along</td></tr>
+    <tr><td>3–14</td><td>How to work with an AI assistant: two failures, nine habits</td><td>watch</td></tr>
+    <tr><td>14–26</td><td><strong>Lab 1</strong> · The bug that isn't where it looks</td><td>hands-on</td></tr>
+    <tr><td>26–30</td><td>Debrief · from a complaint to a spec</td><td>discuss</td></tr>
+    <tr><td>30–45</td><td><strong>Lab 2</strong> · The complaint</td><td>hands-on</td></tr>
+    <tr><td>45–49</td><td>Debrief · building from a brief</td><td>discuss</td></tr>
+    <tr><td>49–67</td><td><strong>Lab 3</strong> · Build from a brief (pick one of two)</td><td>hands-on</td></tr>
+    <tr><td>67–72</td><td>Recap, take-home, beyond the browser</td><td>listen</td></tr>
+  </table>
+  </div>
+  <p class="small">Every step is in <a href="https://github.com/TexBonham/AIWorkshop/blob/main/LABS.md">LABS.md</a> · prompts in <code>labs/prompts.md</code> · one page: <a href="cheatsheet.html">cheat sheet</a></p>
+  <aside class="notes">
+    <ul>
+      <li>[~0:45] You leave with: a workflow that gets correct code out of an assistant, nine habits, and nine copy-paste prompt skeletons.</li>
+      <li>Mostly doing. Three labs. Each one is built so "just fix it" fails and the workflow works.</li>
+      <li>Fall behind? LABS.md has every step. Nobody gets left behind.</li>
+    </ul>
+  </aside>
+</section>
+
+<section class="slide">
+  <h2>You have a message budget</h2>
+  <ul>
+    <li>Free Claude usage runs on a <strong>rolling 5-hour window</strong>. Anthropic doesn't publish the exact free count.</li>
+    <li>So today every message is planned:</li>
+  </ul>
+  <div class="table-wrap">
+  <table class="simple">
+    <tr><th>Lab</th><th>Minutes</th><th>Messages (target)</th></tr>
+    <tr><td>Lab 1 · the bug</td><td>12</td><td>≤ 5</td></tr>
+    <tr><td>Lab 2 · the complaint</td><td>15</td><td>≤ 7</td></tr>
+    <tr><td>Lab 3 · build from a brief</td><td>18</td><td>≤ 5</td></tr>
+  </table>
+  </div>
+  <p class="lead">Every "still broken, try again" is a message you don't get back.</p>
+  <p class="small">Targets, being confirmed in a dry run on a fresh free account.</p>
+  <aside class="notes">
+    <ul>
+      <li>[~1:15] Don't quote a number of free messages; we don't know it and it changes. Say "rolling 5-hour window, count not published".</li>
+      <li>After the Gate 3 dry run: update these numbers here, in LABS.md, and on the cheat sheet.</li>
+      <li>Run out mid-lab? Pair with a neighbour. That's the plan, not a failure.</li>
+    </ul>
+  </aside>
+</section>
+
+<section class="slide lab" data-at="2:00">
+  <div class="kicker">Hands-on · Lab 0 · 1 min · 0 messages</div>
+  <h2>Set up your workspace</h2>
+  <ol>
+    <li>Unzip the repo. Double-click <code>labs/lab1-bug/index.html</code>: a grade calculator opens</li>
+    <li>Go to <strong>claude.ai</strong> → create one <strong>Project</strong> named <code>AI Workshop</code></li>
+    <li>Paste skeleton <span class="skel">#0</span> (the project brief) into the Project's <strong>instructions</strong></li>
+    <li>Every lab = a <strong>new chat inside that Project</strong></li>
+  </ol>
+  <p class="small">No Projects in your sidebar? Fine: paste <span class="skel">#0</span> as the first message of every chat instead.</p>
+  <p class="labfoot">Full steps in <a href="https://github.com/TexBonham/AIWorkshop/blob/main/LABS.md#lab-0-set-up-follow-along">LABS.md</a> · skeletons in <code>labs/prompts.md</code></p>
+  <aside class="notes">
+    <ul>
+      <li>[2:00–3:00] Do it live on the projector once. Show where the ZIP unzipped and where prompts.md is.</li>
+      <li>Projects location ("left sidebar") and the instructions field wording [confirm at Gate 3].</li>
+      <li>Most people will finish this during the next section; that's fine. Helpers watch for anyone with no claude.ai login.</li>
+      <li>Fallback costs nothing extra: #0 just rides along in message 1 of each lab.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- ===== Section 1: How to work with an AI assistant ===== -->
+<section class="slide divider" data-section="1 · How to work with an AI assistant" data-at="3:00">
+  <div class="kicker">Part 1</div>
+  <h1>Two ways "just ask" fails</h1>
+  <p class="lead">A tiny tip splitter, one bug, two requests.</p>
+  <aside class="notes">
+    <ul>
+      <li>[3:00] Live demo on the instructor's account; screenshots in instructor/demo/ as fallback.</li>
+      <li>The example (tip.js) is deliberately not any of the labs. Target: done with both demos by ~7:00.</li>
+    </ul>
+  </aside>
+</section>
+
+<section class="slide">
+  <h2>Failure 1: "fix the bug"</h2>
+  <div class="chat">
+    <div class="you"><span class="who">You</span>fix the bug<pre><code>function splitBill(bill, tipPercent, people) {
+  const tip = bill * tipPercent / 100;
+  const share = bill / people + tip;
+  return roundCents(share);
+}
+function roundCents(x) {
+  let cents = Math.round(x * 100);
+  if (cents % 1 !== 0) { cents = Math.ceil(cents); }
+  return cents / 100;
+}</code></pre></div>
+    <div class="ai"><span class="who">Assistant</span>Found it! <code>roundCents</code> is convoluted: the <code>cents % 1</code> check can never be true. I've rewritten it as <code>Math.round(x * 100) / 100</code>. <strong>Fixed!</strong> Your tip splitter should work correctly now.</div>
+  </div>
+  <div class="card bad"><p>The rounding was ugly but <strong>correct</strong>. The real bug, <em>$60, 20% tip, 3 people shows $32.00 each, expected $24.00</em>, is untouched. It never heard the symptom.</p></div>
+  <aside class="notes">
+    <ul>
+      <li>[~3:30] Live demo on the instructor's account; screenshots in instructor/demo/ as fallback. Exact wording will differ live; the pattern is what matters.</li>
+      <li>Ask the room: what was the bug? (Tip isn't divided among people: 60/3 + 12 = 32.) Nobody told the assistant, so it fixed the ugliest code it saw and declared victory.</li>
+      <li>"Fixed!" is a claim, not a result. Hold that thought: habit 6.</li>
+    </ul>
+  </aside>
+</section>
+
+<section class="slide">
+  <h2>Failure 2: "add X"</h2>
+  <div class="chat">
+    <div class="you"><span class="who">You</span>Add an option to round each share up to the next dollar. <em>(tip.js pasted)</em></div>
+    <div class="ai"><span class="who">Assistant</span>Done! I added a <code>roundUp</code> option. While I was in there I also:
+      <ul>
+        <li>renamed <code>splitBill</code> to <code>calculateShare</code> for clarity</li>
+        <li>converted everything to arrow functions</li>
+        <li>formatted the result with a currency symbol</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card bad"><p>One request, four changes to review. The page still calls <code>splitBill()</code>, so now <strong>nothing</strong> works, and the display shows <code>$$24.00</code>.</p></div>
+  <aside class="notes">
+    <ul>
+      <li>[~5:30] Live demo on the instructor's account; screenshots in instructor/demo/ as fallback.</li>
+      <li>Point: the assistant is eager. Unasked "improvements" are where new bugs come from, and they make the real change hard to find.</li>
+      <li>Both failures are preventable with what you say, not with a better model. That's the next 7 minutes.</li>
+    </ul>
+  </aside>
+</section>
+
+<section class="slide">
+  <div class="kicker">Habit 1</div>
+  <h2><span class="habit">1</span> Context first</h2>
+  <p>Start every chat with a short <strong>project brief</strong>: what the code is, what "done" means, what not to touch.</p>
+  <div class="cols">
+    <div class="card good"><h3>In a Project</h3><p>The brief lives in the Project's instructions. Every new chat starts with it, free.</p></div>
+    <div class="card"><h3>No Projects?</h3><p>Paste the brief as the first lines of message 1.</p></div>
+  </div>
+  <p class="small">Skeleton <span class="skel">#0</span> · it also bans refactors and "fixed!" claims for the whole chat.</p>
+  <aside class="notes">
+    <ul>
+      <li>[~7:00] Target: ~40 s per habit slide. You'll practise all of them in the labs.</li>
+      <li>Show skeleton #0 in labs/prompts.md briefly: "list assumptions, smallest change, only app.js, show changed lines, never say fixed".</li>
+      <li>That one paste would have prevented most of Failure 2.</li>
+    </ul>
+  </aside>
+</section>
+
+<section class="slide">
+  <div class="kicker">Habits 2 and 3</div>
+  <h2>Describe what you saw, then prove it</h2>
+  <div class="cols">
+    <div class="card"><h3><span class="habit">2</span> Symptom, not diagnosis</h3><p>Say what you did, what you saw, what you expected. Don't guess the cause for it; a wrong guess sends it to the wrong place.</p></div>
+    <div class="card"><h3><span class="habit">3</span> Reproduce, paste the real output</h3><p>The exact wrong number. The red test lines, copied. <strong>Text, not screenshots.</strong></p></div>
+  </div>
+  <pre><code>What I saw:      $60, 20% tip, 3 people → $32.00 each
+What I expected: $24.00 each ((60 + 12) / 3)</code></pre>
+  <p class="small">Skeletons <span class="skel">#1</span> report a bug · <span class="skel">#4</span> report back after testing</p>
+  <aside class="notes">
+    <ul>
+      <li>[~7:40] With these two lines, Failure 1 doesn't happen: it looks at the share math, not the rounding.</li>
+      <li>"I think the rounding is wrong" is a diagnosis. If you're wrong, it agrees with you anyway.</li>
+    </ul>
+  </aside>
+</section>
+
+<section class="slide">
+  <div class="kicker">Habit 4</div>
+  <h2><span class="habit">4</span> Plan before code, with assumptions</h2>
+  <p class="lead">"List your assumptions and a plan. Don't write code yet."</p>
+  <ol>
+    <li>It lists assumptions and a numbered plan</li>
+    <li>You <strong>correct</strong> the wrong assumptions</li>
+    <li>You <strong>approve</strong> specific steps</li>
+    <li>Then it writes code</li>
+  </ol>
+  <p>A wrong assumption costs one line to fix in a plan, and a whole rewrite after the code.</p>
+  <p class="small">Skeletons <span class="skel">#2</span> assumptions + plan · <span class="skel">#3</span> approve and correct</p>
+  <aside class="notes">
+    <ul>
+      <li>[~8:40] This is the habit that matters most for Labs 2 and 3. It feels slower; it is cheaper.</li>
+      <li>Reading the assumptions list is where you find out it misunderstood you, before you pay for code.</li>
+    </ul>
+  </aside>
+</section>
+
+<section class="slide">
+  <div class="kicker">Habits 5 and 6</div>
+  <h2>Small changes, checked by you</h2>
+  <div class="cols">
+    <div class="card"><h3><span class="habit">5</span> One change at a time</h3><p>Ask for the smallest change. Forbid refactors you didn't ask for. "Show me only the changed lines."</p></div>
+    <div class="card"><h3><span class="habit">6</span> Verify every claim</h3><p>"Fixed" means nothing until <strong>your</strong> tests say so. Save, re-run, then report the real result back.</p></div>
+  </div>
+  <p class="small">Skeletons <span class="skel">#3</span> approve steps 1–3 only · <span class="skel">#4</span> report back · <span class="skel">#8</span> fix only these</p>
+  <aside class="notes">
+    <ul>
+      <li>[~9:40] Every lab has a tests page or a checklist. Its verdict beats the assistant's.</li>
+      <li>If it says "fixed" and the test is red, don't argue in prose: paste the red lines (#4).</li>
+    </ul>
+  </aside>
+</section>
+
+<section class="slide">
+  <div class="kicker">Habit 7</div>
+  <h2><span class="habit">7</span> Read the diff, own the decision</h2>
+  <ul>
+    <li>You are the reviewer. If you can't say which line changed and why, you're not done.</li>
+    <li>When a choice matters, make it argue against itself:</li>
+  </ul>
+  <pre><code>Give me the strongest case against this approach, and one
+alternative. Then tell me which you'd pick and why. No code.</code></pre>
+  <p class="small">Skeleton <span class="skel">#6</span> argue against it</p>
+  <aside class="notes">
+    <ul>
+      <li>[~10:40] Assistants agree with you by default. Asking for the case against is how you get the other side.</li>
+      <li>Lab 2 is where this pays off: the obvious fix is not the right one.</li>
+    </ul>
+  </aside>
+</section>
+
+<section class="slide">
+  <div class="kicker">Habits 8 and 9</div>
+  <h2>Keep chats short, spend on purpose</h2>
+  <div class="cols">
+    <div class="card"><h3><span class="habit">8</span> Fresh chat when context rots</h3><p>Long chats drift and cost more per message. <strong>New lab = new chat.</strong> Your Project brief comes with you.</p></div>
+    <div class="card"><h3><span class="habit">9</span> Budget your messages</h3><p>Each lab has a spend plan. LABS.md says <em>"Message 2 of 5"</em> on every step that sends one.</p></div>
+  </div>
+  <p class="lead">Plan → approve → one change → test → report back.</p>
+  <aside class="notes">
+    <ul>
+      <li>[~11:40] Recap the loop in one line, then go.</li>
+      <li>Questions? Take one or two, max. Lab 1 starts at 14:00.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- ===== Section 2: Lab 1 ===== -->
+<section class="slide lab" data-section="2 · Lab 1: The bug" data-at="14:00">
+  <div class="kicker">Hands-on · Lab 1 · 12 min · ≤5 messages</div>
+  <h2>The bug that isn't where it looks</h2>
+  <div class="ticket">
+    <p><strong>#41 · Homework average comes out as 50.7%</strong></p>
+    <p>I copied my homework scores straight from the syllabus tracker sheet: <strong>9 / 10, 40 / 50, 95 / 100</strong>. The app shows the Homework average as <strong>50.7%</strong>, and my overall grade shows a C. By hand those are 90%, 80% and 95%, which average to <strong>88.3%</strong>, and that should make the overall a B.</p>
+    <p>Quizzes and the midterm look right, so it's just Homework.</p>
+  </div>
+  <ol>
+    <li>New chat in your Project. Reproduce it in <code>index.html</code>; open <code>tests.html</code>, copy the red lines</li>
+    <li>Msg 1 <span class="skel">#1</span> symptom + red lines + <code>app.js</code> · Msg 2 <span class="skel">#2</span> assumptions + plan</li>
+    <li>Msg 3 <span class="skel">#3</span> approve → edit <code>app.js</code>, save, refresh <code>tests.html</code></li>
+    <li>Still red? Msg 4–5 <span class="skel">#4</span> paste the red lines back</li>
+    <li>Done: all green, and you can point at the line you changed</li>
+  </ol>
+  <p class="labfoot">Full steps in <a href="https://github.com/TexBonham/AIWorkshop/blob/main/LABS.md#lab-1-the-bug-that-isnt-where-it-looks">LABS.md</a> · ticket in <code>labs/lab1-bug/README.md</code></p>
+  <aside class="notes">
+    <ul>
+      <li>[14:00–26:00] Reproduce on the projector first: open index.html, the Homework row is already filled in and shows 50.7%; expected 88.3%. Then let them go.</li>
+      <li>Walk the room. Look for people who typed "fix the bug": ask what the ticket says, point them at skeleton #1.</li>
+      <li>Watch for: a "fix" that turns a different test red. That's the point; paste it back with #4.</li>
+      <li>Snags: tests still red after saving → edited the wrong copy of app.js, or didn't refresh. Notepad saved as app.js.txt → Save as type: All files.</li>
+      <li>[~24:00] Two-minute warning.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- ===== Section 3: Debrief Lab 1 ===== -->
+<section class="slide divider" data-section="3 · Debrief: complaint to spec" data-at="26:00">
+  <div class="kicker">Debrief · Lab 1</div>
+  <h1>Where was the bug?</h1>
+  <ul>
+    <li>Who got all green in three messages or fewer? What did you paste in message 1?</li>
+    <li>Did anyone's assistant rewrite code that wasn't broken? Did it say "fixed"?</li>
+    <li>Did a <em>different</em> test go red after the first fix? What did you send back?</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>[26:00] Two minutes, hands up, take two or three answers. Get one person to say which line changed and why.</li>
+      <li>Land it: the symptom plus the red test text pointed straight at the average; "fix the bug" pointed at the ugliest code.</li>
+    </ul>
+  </aside>
+</section>
+
+<section class="slide">
+  <h2>From a complaint to a spec</h2>
+  <div class="cols">
+    <div class="card bad"><h3>A complaint</h3><p>"The search is broken." Real, but it doesn't say what <em>right</em> looks like.</p></div>
+    <div class="card good"><h3>A requirement</h3><p>Examples with expected results: "I type X, I see A and B, I don't see C."</p></div>
+  </div>
+  <ul>
+    <li><strong>Examples are the spec.</strong> Write them before you open the chat</li>
+    <li><strong>Ask for its assumptions</strong>: the gaps your examples don't cover <span class="skel">#5</span> <span class="skel">#2</span></li>
+    <li><strong>Make it argue against</strong> the obvious fix <span class="skel">#6</span></li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>[~28:00] Bridge to Lab 2. Nothing is broken in Lab 2: every test passes. The code does what it was written to do, not what people expect.</li>
+      <li>You decide what "correct" is. The assistant can't, because only the owner knows.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- ===== Section 4: Lab 2 ===== -->
+<section class="slide lab" data-section="4 · Lab 2: The complaint" data-at="30:00">
+  <div class="kicker">Hands-on · Lab 2 · 15 min · ≤7 messages</div>
+  <h2>The complaint</h2>
+  <div class="ticket">
+    <p class="from">From a student, via the feedback form</p>
+    <p>The search on the events page is broken. I typed <strong>art</strong> and got <em>Startup Weekend</em> and <em>Cartography Club</em>. Neither of those has anything to do with art. The actual <em>Art Society Open Studio</em> was in the list, but so was a bunch of junk.</p>
+  </div>
+  <ol>
+    <li>New chat. <strong>Before opening Claude:</strong> write 5 example searches with expected results</li>
+    <li>Msg 1 <span class="skel">#5</span> complaint + examples + <code>app.js</code> · Msg 2 <span class="skel">#2</span> · Msg 3 <span class="skel">#3</span></li>
+    <li>Apply, refresh <code>tests.html</code>, try your 5 examples in <code>index.html</code></li>
+    <li>Checklist on the projector → Msg 4–5 <span class="skel">#8</span> fix only what fails</li>
+    <li>Msg 6: ask for 2 tests for the new behaviour, paste them into <code>tests.js</code></li>
+  </ol>
+  <p class="labfoot">Full steps in <a href="https://github.com/TexBonham/AIWorkshop/blob/main/LABS.md#lab-2-the-complaint">LABS.md</a> · Msg 7 is spare</p>
+  <aside class="notes">
+    <ul>
+      <li>[30:00–45:00] Stress step 1: pen and paper (or a text file) first. No examples, no message 1.</li>
+      <li>Walk the room. If someone's plan makes the match much stricter, ask them to try a few partial words in index.html, then point them at #6.</li>
+      <li>Don't reveal the owner's intent before the checklist slide.</li>
+      <li>Snag: tests.js edit breaks tests.html → they pasted outside the list; check the end of the file.</li>
+    </ul>
+  </aside>
+</section>
+
+<section class="slide center" data-at="37:00">
+  <div class="kicker">Lab 2 · minute 7</div>
+  <h2>Acceptance checklist</h2>
+  <p class="lead">The owner's checklist is now on the projector.</p>
+  <p>Run every query in <code>index.html</code>. Anything that fails goes into skeleton <span class="skel">#8</span>.</p>
+  <aside class="notes">
+    <ul>
+      <li>[37:00] Switch the projector to instructor/checklists/lab2.md (written after the Gate 3 dry run). It is NOT in this deck because the deck is public.</li>
+      <li>Leave it up until ~43:00. Ask: whose examples already covered most of it?</li>
+      <li>[~43:00] Last step: ask for two tests for the new behaviour and paste them into tests.js.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- ===== Section 5: Debrief Lab 2 ===== -->
+<section class="slide divider" data-section="5 · Debrief: brief to build" data-at="45:00">
+  <div class="kicker">Debrief · Lab 2</div>
+  <h1>Who decided what "art" means?</h1>
+  <ul>
+    <li>Who wrote all 5 examples before opening Claude? How many checklist items did they already cover?</li>
+    <li>Which of its assumptions did you correct?</li>
+    <li>Did anyone's plan match whole words only? What did that break?</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>[45:00] Two minutes. Get one wrong assumption out loud.</li>
+      <li>Land it: the obvious fix (whole words only) is the wrong one: it breaks partial-word searches people rely on. Only the owner's examples tell you that.</li>
+    </ul>
+  </aside>
+</section>
+
+<section class="slide">
+  <h2>From a brief to a build</h2>
+  <p class="lead">Brief → spec → acceptance checks → <strong>one</strong> build → test locally → fix only what fails</p>
+  <div class="cols">
+    <div class="card"><h3>Why one build</h3><p>A whole page is a long reply. Each rebuild costs far more of your budget than a short answer. Settle the spec first, then build once.</p></div>
+    <div class="card"><h3>Test it where it runs</h3><p>Download the artifact, or copy its code into a file ending in <code>.html</code>. Open it in your browser and tick your list.</p></div>
+  </div>
+  <p class="small">Skeletons <span class="skel">#7</span> build from a brief · <span class="skel">#3</span> approve · <span class="skel">#8</span> fix round</p>
+  <aside class="notes">
+    <ul>
+      <li>[~47:00] An <em>artifact</em> is the panel where Claude shows a whole file. Show the download / copy button on the projector.</li>
+      <li>Fix rounds name the failing checks only. "Make it better" restarts the whole page.</li>
+    </ul>
+  </aside>
+</section>
+
+<section class="slide" data-at="48:30">
+  <div class="kicker">30 seconds</div>
+  <h2>Check your usage meter</h2>
+  <ol>
+    <li>In claude.ai, look at the usage indicator (or your settings)</li>
+    <li>Plenty left? Pick <strong>brief A</strong></li>
+    <li>Nearly out? Pick <strong>brief B</strong>, or pair with a neighbour</li>
+  </ol>
+  <aside class="notes">
+    <ul>
+      <li>[48:30] Show where the meter is on the instructor's screen. Its exact location may move [confirm at Gate 3].</li>
+      <li>Pairing plan: one laptop drives, the other person writes the acceptance checks.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- ===== Section 6: Lab 3 ===== -->
+<section class="slide lab" data-section="6 · Lab 3: Build from a brief" data-at="49:00">
+  <div class="kicker">Hands-on · Lab 3 · 18 min · ≤5 messages</div>
+  <h2>Build from a brief: pick one</h2>
+  <div class="cols">
+    <div class="card"><h3>A · Class schedule builder</h3><p><strong>Standard pick.</strong> An advising office wants a weekly grid that shows which courses collide.</p><p><code>labs/lab3-build/brief-schedule.md</code></p></div>
+    <div class="card"><h3>B · Game of Life</h3><p><strong>Lighter pick:</strong> low on budget, or want the more visual result. A club wants a demo page for its fair table.</p><p><code>labs/lab3-build/brief-life.md</code></p></div>
+  </div>
+  <p class="lead">The other one is your take-home.</p>
+  <aside class="notes">
+    <ul>
+      <li>[49:00] One minute to choose. Most people should take A.</li>
+      <li>Both briefs are deliberately vague. The "What the brief does not say" list under each one is the real work.</li>
+    </ul>
+  </aside>
+</section>
+
+<section class="slide lab">
+  <div class="kicker">Hands-on · Lab 3 · 18 min · ≤5 messages</div>
+  <h2>Spec first, build once</h2>
+  <ol>
+    <li>On paper: answer "What the brief does not say", then write 8–12 acceptance checks</li>
+    <li>New chat. Msg 1 <span class="skel">#7</span> brief + checks, no build yet</li>
+    <li>Msg 2 <span class="skel">#3</span> correct its assumptions, approve → <strong>one</strong> build</li>
+    <li>Download it (or copy into a <code>.html</code> file), open it in your browser, tick your list</li>
+    <li>Up to 2 rounds of <span class="skel">#8</span>: only the checks that failed</li>
+  </ol>
+  <p class="labfoot">Full steps in <a href="https://github.com/TexBonham/AIWorkshop/blob/main/LABS.md#lab-3-build-from-a-brief">LABS.md</a> · one message is spare</p>
+  <aside class="notes">
+    <ul>
+      <li>[~50:00–65:00] Push the paper step hard: 5 minutes of writing saves 3 messages.</li>
+      <li>Walk the room. "Make it nicer" is not a check; ask what they would click to test it.</li>
+      <li>Snags: artifact won't download → copy the code into a new file ending .html (download/copy button wording [confirm at Gate 3]). TextEdit → Format → Make Plain Text first.</li>
+      <li>[~63:00] Two minutes to self-check.</li>
+    </ul>
+  </aside>
+</section>
+
+<section class="slide center" data-at="65:00">
+  <div class="kicker">Lab 3 · self-check</div>
+  <h2>How does yours compare?</h2>
+  <p class="lead">The instructor's checklist for your brief is on the projector.</p>
+  <p>How many did your own list already cover? Which ones did you miss?</p>
+  <aside class="notes">
+    <ul>
+      <li>[65:00] Show instructor/checklists/lab3-schedule.md, then lab3-life.md (written after the Gate 3 dry run). Not in this deck because the deck is public.</li>
+      <li>Self-check only; no grading. Ask for one check someone had that the instructor's list doesn't.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- ===== Section 7: Wrap-up ===== -->
+<section class="slide divider" data-section="7 · Wrap-up" data-at="67:00">
+  <div class="kicker">Wrap-up</div>
+  <h1>The nine habits</h1>
+  <div class="table-wrap">
+  <table class="simple">
+    <tr><td><span class="habit">1</span> Context first</td><td><span class="habit">4</span> Plan + assumptions before code</td><td><span class="habit">7</span> Read the diff, own the decision</td></tr>
+    <tr><td><span class="habit">2</span> Symptom, not diagnosis</td><td><span class="habit">5</span> One change at a time</td><td><span class="habit">8</span> Fresh chat when context rots</td></tr>
+    <tr><td><span class="habit">3</span> Reproduce, paste real output</td><td><span class="habit">6</span> Verify every claim</td><td><span class="habit">9</span> Budget your messages</td></tr>
+  </table>
+  </div>
+  <p class="lead">You direct. It types. Your tests decide.</p>
+  <aside class="notes">
+    <ul>
+      <li>[67:00] One sentence per column: give it context and evidence; make it plan and keep it small; check it and own it.</li>
+    </ul>
+  </aside>
+</section>
+
+<section class="slide">
+  <h2>Take-home</h2>
+  <ul>
+    <li><strong>Build the other Lab 3 brief</strong>, start to finish, in a fresh chat</li>
+    <li>Keep <code>labs/prompts.md</code>: skeletons <span class="skel">#0</span>–<span class="skel">#8</span> work on any project</li>
+    <li>Unfinished lab? Every step is in <a href="https://github.com/TexBonham/AIWorkshop/blob/main/LABS.md">LABS.md</a></li>
+  </ul>
+  <p class="small">One page to keep: <a href="cheatsheet.html">cheat sheet</a></p>
+  <aside class="notes">
+    <ul>
+      <li>[~68:30] Wait for your usage window to reset before starting the take-home.</li>
+      <li>Try it on your own coursework next: write the brief (#0) first.</li>
+    </ul>
+  </aside>
+</section>
+
+<section class="slide">
+  <h2>Beyond the browser</h2>
+  <ul>
+    <li>Paid tiers add <strong>Claude Code</strong>: the assistant works in a terminal on your real files, and plugs into editors</li>
+    <li>Other tools do similar things: GitHub Copilot, Cursor, and more</li>
+    <li><strong>The habits don't change.</strong> Context, symptoms, plan first, small changes, verify, own the decision</li>
+  </ul>
+  <p class="lead">The tool will change. Directing it is the skill.</p>
+  <aside class="notes">
+    <ul>
+      <li>[~70:00] Don't quote prices or limits; they change. Point people at the providers' own pages.</li>
+      <li>The more an assistant can do on its own, the more habits 4, 6 and 7 matter.</li>
+    </ul>
+  </aside>
+</section>
+
+<section class="slide center">
+  <h2>Thank you</h2>
+  <p class="lead">Direct. Verify. Ship.</p>
+  <p class="small"><a href="https://github.com/TexBonham/AIWorkshop">github.com/TexBonham/AIWorkshop</a> · <a href="cheatsheet.html">cheat sheet</a></p>
+  <aside class="notes">
+    <ul>
+      <li>[~71:00] Thank helpers. Leave this up while people pack.</li>
+    </ul>
+  </aside>
+</section>
+
+</main>
+
+<nav class="hud" aria-label="Slide controls">
+  <span class="section-name" id="section-name"></span>
+  <span class="clock hide-narrow" id="clock" title="Elapsed time (press T to reset)"></span>
+  <a href="cheatsheet.html" class="hide-narrow">Cheat sheet</a>
+  <button type="button" id="btn-notes" class="hide-narrow" title="Speaker notes (N)">Notes</button>
+  <button type="button" id="btn-overview" class="hide-narrow" title="Overview (O)">Grid</button>
+  <button type="button" id="btn-prev" aria-label="Previous slide">‹</button>
+  <span id="counter">1 / 1</span>
+  <button type="button" id="btn-next" aria-label="Next slide">›</button>
+</nav>
+
+<script src="js/slides.js"></script>
+</body>
+</html>

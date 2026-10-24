@@ -1,0 +1,11 @@
+# Instructor-only: solutions, acceptance checklists, dry-run logs, demo screenshots — never commit
+instructor/
+
+# Python
+__pycache__/
+*.pyc
+
+# Editors / OS
+.vscode/
+.DS_Store
+Thumbs.db

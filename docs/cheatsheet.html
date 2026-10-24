@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Coding Cheat Sheet</title>
+  <meta name="description" content="One-page cheat sheet: nine habits for directing an AI coding assistant, the numbered prompt skeletons, and fixes for common problems.">
+  <style>
+    :root {
+      --bg: #fbfaf7;
+      --surface: #ffffff;
+      --text: #1d1d1f;
+      --muted: #5b5b63;
+      --accent: #2f6fde;
+      --border: #dcd8cf;
+      --code-bg: #f1efe9;
+      --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --mono: ui-monospace, "Cascadia Code", "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #15161a;
+        --surface: #1e2026;
+        --text: #ecebe7;
+        --muted: #a3a3ad;
+        --accent: #7aa7ff;
+        --border: #353844;
+        --code-bg: #262932;
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #15161a;
+      --surface: #1e2026;
+      --text: #ecebe7;
+      --muted: #a3a3ad;
+      --accent: #7aa7ff;
+      --border: #353844;
+      --code-bg: #262932;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      border-bottom: 3px solid var(--accent);
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin: 0 0 4px;
+    }
+
+    h2 {
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin: 14px 0 4px;
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    code {
+      font-family: var(--mono);
+      background: var(--code-bg);
+      padding: 0 4px;
+      border-radius: 4px;
+      font-size: 0.92em;
+      overflow-wrap: anywhere;
+    }
+
+    .wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      background: var(--surface);
+    }
+
+    th,
+    td {
+      text-align: left;
+      vertical-align: top;
+      border: 1px solid var(--border);
+      padding: 4px 6px;
+    }
+
+    th {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    td.n {
+      width: 2.2em;
+      text-align: center;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0 16px;
+    }
+
+    @media (min-width: 760px) {
+      .grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .loop {
+      font-weight: 600;
+      margin: 6px 0 0;
+    }
+
+    @media print {
+      @page {
+        size: letter portrait;
+        margin: 0.4in;
+      }
+
+      :root {
+        --bg: #ffffff;
+        --surface: #ffffff;
+        --text: #000000;
+        --muted: #333333;
+        --accent: #1a4fa8;
+        --border: #999999;
+        --code-bg: #eeeeee;
+      }
+
+      body {
+        font-size: 9.5pt;
+      }
+
+      main {
+        padding: 0;
+        max-width: none;
+      }
+
+      h1 {
+        font-size: 16pt;
+      }
+
+      h2 {
+        font-size: 10pt;
+        margin-top: 8px;
+      }
+
+      th,
+      td {
+        padding: 2px 5px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .noprint {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Coding with AI: cheat sheet</h1>
+    <span class="muted">github.com/TexBonham/AIWorkshop · <a class="noprint" href="index.html">back to slides</a></span>
+  </header>
+
+  <div class="grid">
+    <section>
+      <h2>The 9 habits</h2>
+      <div class="wrap">
+      <table>
+        <tr><th>#</th><th>Habit</th><th>In a browser chat</th></tr>
+        <tr><td class="n">1</td><td><strong>Context first</strong></td><td>Start with a project brief: what the code is, what "done" means, what not to touch. Put it in the Project's instructions.</td></tr>
+        <tr><td class="n">2</td><td><strong>Symptom, not diagnosis</strong></td><td>Say what you saw and expected. Don't guess the cause for it.</td></tr>
+        <tr><td class="n">3</td><td><strong>Reproduce, paste real output</strong></td><td>Exact wrong output, red test lines. Text, not screenshots.</td></tr>
+        <tr><td class="n">4</td><td><strong>Plan + assumptions before code</strong></td><td>"List your assumptions and a plan. Don't write code yet." Correct, then approve.</td></tr>
+        <tr><td class="n">5</td><td><strong>One change at a time</strong></td><td>Smallest change. No refactors you didn't ask for.</td></tr>
+        <tr><td class="n">6</td><td><strong>Verify every claim</strong></td><td>"Fixed" means nothing until your tests say so. Re-run, report the real result.</td></tr>
+        <tr><td class="n">7</td><td><strong>Read the diff, own the decision</strong></td><td>You're the reviewer. Make it argue against its own choice.</td></tr>
+        <tr><td class="n">8</td><td><strong>Fresh chat when context rots</strong></td><td>Long chats drift and cost more. New task = new chat.</td></tr>
+        <tr><td class="n">9</td><td><strong>Budget your messages</strong></td><td>Plan every message. Each "still broken" costs one.</td></tr>
+      </table>
+      </div>
+      <p class="loop">Plan → approve → one change → test → report back.</p>
+    </section>
+    <section>
+      <h2>Prompt skeletons</h2>
+      <div class="wrap">
+      <table>
+        <tr><th>#</th><th>Skeleton</th><th>Use it to…</th></tr>
+        <tr><td class="n">0</td><td>Project brief</td><td>set the rules once: plan first, smallest change, only <code>app.js</code>, never claim "fixed"</td></tr>
+        <tr><td class="n">1</td><td>Report a bug</td><td>give what you did / saw / expected + red test lines. No code yet.</td></tr>
+        <tr><td class="n">2</td><td>Assumptions + plan</td><td>get every assumption and a numbered plan before any change</td></tr>
+        <tr><td class="n">3</td><td>Approve (and correct)</td><td>fix wrong assumptions, approve specific steps, see only changed lines</td></tr>
+        <tr><td class="n">4</td><td>Report back</td><td>paste the red lines (or "all green") after testing</td></tr>
+        <tr><td class="n">5</td><td>Complaint → spec</td><td>give the complaint word for word + your examples; ask what's undecided</td></tr>
+        <tr><td class="n">6</td><td>Argue against it</td><td>get the strongest case against and one alternative. No code.</td></tr>
+        <tr><td class="n">7</td><td>Build from a brief</td><td>brief + acceptance checks; assumptions and plan first, then one build</td></tr>
+        <tr><td class="n">8</td><td>Fix round</td><td>list only the failing checks; "don't change anything that works"</td></tr>
+      </table>
+      </div>
+      <p class="muted">Full text: <code>labs/prompts.md</code> in the ZIP.</p>
+      <h2>Budgets today</h2>
+      <p class="muted">Lab 1 ≤ 5 · Lab 2 ≤ 7 · Lab 3 ≤ 5 messages (targets). New lab = new chat in your <code>AI Workshop</code> Project.</p>
+    </section>
+  </div>
+
+  <h2>I'm stuck</h2>
+  <div class="wrap">
+  <table>
+    <tr><th>Problem</th><th>Fix</th></tr>
+    <tr><td><code>tests.html</code> still red after refresh</td><td>Did you <strong>save</strong> <code>app.js</code>? Is it the right file (the one in this lab's folder)?</td></tr>
+    <tr><td>Claude says "fixed" but tests are red</td><td>Paste the red lines back with skeleton <strong>#4</strong>. Don't argue in prose.</td></tr>
+    <tr><td>Out of messages</td><td>A new chat won't help: the budget is per account. Pair with a neighbour, or pick brief <strong>B</strong> for Lab 3.</td></tr>
+    <tr><td>Artifact won't download</td><td>Copy the code into a new file ending in <code>.html</code>, then double-click it.</td></tr>
+    <tr><td>TextEdit saved rich text</td><td><strong>Format → Make Plain Text</strong>, then save again.</td></tr>
+    <tr><td>Notepad saved <code>app.js.txt</code></td><td><strong>Save As</strong> → <em>Save as type:</em> <strong>All files</strong>.</td></tr>
+    <tr><td>No Projects in claude.ai</td><td>Paste skeleton <strong>#0</strong> at the top of the first message of each chat.</td></tr>
+  </table>
+  </div>
+  <p class="muted">Step-by-step: <a href="https://github.com/TexBonham/AIWorkshop/blob/main/LABS.md">LABS.md</a> · <a href="https://github.com/TexBonham/AIWorkshop/blob/main/LABS.md#lab-1-the-bug-that-isnt-where-it-looks">Lab 1</a> · <a href="https://github.com/TexBonham/AIWorkshop/blob/main/LABS.md#lab-2-the-complaint">Lab 2</a> · <a href="https://github.com/TexBonham/AIWorkshop/blob/main/LABS.md#lab-3-build-from-a-brief">Lab 3</a></p>
+</main>
+</body>
+</html>

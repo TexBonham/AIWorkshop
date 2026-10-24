@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grade calculator</title>
+<style>
+  :root { --ink: #1d1d1f; --muted: #666; --line: #ddd; --accent: #2f6fde; --bg: #fff; --card: #f6f7f9; }
+  body { font-family: system-ui, sans-serif; margin: 2rem auto; max-width: 56rem; padding: 0 1rem; color: var(--ink); background: var(--bg); }
+  h1 { font-size: 1.6rem; margin-bottom: .2rem; }
+  p.lead { color: var(--muted); margin-top: 0; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; padding: .5rem .4rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: .85rem; color: var(--muted); font-weight: 600; }
+  input[type="text"], input[type="number"] { font: inherit; padding: .35rem .5rem; border: 1px solid var(--line); border-radius: .3rem; width: 100%; box-sizing: border-box; }
+  input[type="number"] { width: 5rem; }
+  td.avg { font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 600; }
+  .total { margin-top: 1.5rem; padding: 1rem 1.2rem; background: var(--card); border-radius: .5rem; display: flex; gap: 2rem; align-items: baseline; }
+  .total .num { font-size: 2rem; font-weight: 700; }
+  .total .letter { font-size: 2rem; font-weight: 700; color: var(--accent); }
+  button { font: inherit; padding: .4rem .8rem; border: 1px solid var(--line); background: #fff; border-radius: .3rem; cursor: pointer; margin-top: .8rem; }
+  button:hover { border-color: var(--accent); }
+  .warn { color: #a12626; font-size: .9rem; }
+</style>
+</head>
+<body>
+<h1>Grade calculator</h1>
+<p class="lead">Enter each category's weight and scores. A plain number is out of 100; write <code>18/20</code> for a score out of something else. Tick <em>drop lowest</em> if the syllabus drops your lowest score in that category.</p>
+
+<table>
+  <thead>
+    <tr><th>Category</th><th>Weight (%)</th><th>Scores (e.g. <code>9/10, 40/50, 95</code>)</th><th>Drop lowest</th><th>Average</th></tr>
+  </thead>
+  <tbody id="rows"></tbody>
+</table>
+<button id="add">+ Add category</button>
+<p id="weightWarn" class="warn" hidden>Weights don't add up to 100%. The total below uses only the categories that have scores, scaled to their weights.</p>
+
+<div class="total">
+  <div><div>Current grade</div><div class="num" id="total">—</div></div>
+  <div><div>Letter</div><div class="letter" id="letter">—</div></div>
+</div>
+
+<script src="app.js"></script>
+<script>
+  const starting = [
+    { name: "Homework", weight: 30, scores: "9 / 10, 40 / 50, 95 / 100", dropLowest: false },
+    { name: "Quizzes", weight: 20, scores: "7/10, 17/20, 10/10", dropLowest: false },
+    { name: "Midterm", weight: 20, scores: "88", dropLowest: false },
+    { name: "Final", weight: 30, scores: "", dropLowest: false }
+  ];
+
+  const rows = document.getElementById("rows");
+
+  function addRow(data) {
+    const tr = document.createElement("tr");
+    tr.innerHTML =
+      '<td><input type="text" class="name" value=""></td>' +
+      '<td><input type="number" class="weight" min="0" max="100" step="1" value=""></td>' +
+      '<td><input type="text" class="scores" value="" placeholder="e.g. 9/10, 40/50, 95"></td>' +
+      '<td><input type="checkbox" class="drop"></td>' +
+      '<td class="avg">—</td>';
+    tr.querySelector(".name").value = data.name;
+    tr.querySelector(".weight").value = data.weight;
+    tr.querySelector(".scores").value = data.scores;
+    tr.querySelector(".drop").checked = data.dropLowest;
+    rows.appendChild(tr);
+  }
+
+  function readRows() {
+    const inputs = [];
+    for (const tr of rows.querySelectorAll("tr")) {
+      inputs.push({
+        name: tr.querySelector(".name").value,
+        weight: tr.querySelector(".weight").value,
+        scores: tr.querySelector(".scores").value,
+        dropLowest: tr.querySelector(".drop").checked
+      });
+    }
+    return inputs;
+  }
+
+  function render() {
+    const inputs = readRows();
+    const result = App.summarize(inputs);
+    const trs = rows.querySelectorAll("tr");
+    let weightSum = 0;
+    for (let i = 0; i < trs.length; i++) {
+      trs[i].querySelector(".avg").textContent = App.formatPercent(result.categories[i].average);
+      weightSum += result.categories[i].weight;
+    }
+    document.getElementById("weightWarn").hidden = weightSum === 100;
+    document.getElementById("total").textContent = App.formatPercent(result.total);
+    document.getElementById("letter").textContent = result.letter;
+  }
+
+  for (const data of starting) {
+    addRow(data);
+  }
+  rows.addEventListener("input", render);
+  document.getElementById("add").addEventListener("click", function () {
+    addRow({ name: "", weight: "", scores: "", dropLowest: false });
+    render();
+  });
+  render();
+</script>
+</body>
+</html>
