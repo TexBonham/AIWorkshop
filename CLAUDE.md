@@ -70,7 +70,7 @@ Lab-design tests (Gate 2): **naive prompt fails** ("fix the bug" / "make it work
 | Gate | State |
 |---|---|
 | G1 Plan sign-off | ✅ 2026-10-24 |
-| G2 Labs built, design tests pass, `verify_labs.py` green | labs built, `verify_labs.py` green; naive-proxy test: Lab 1 ✅ (v3), Lab 2 ✅; workflow-succeeds test runs at G3 on a real free account |
+| G2 Labs built, design tests pass, `verify_labs.py` green | ✅ 2026-10-24 — proxy design tests: naive fails (Lab 1 v3, Lab 2), workflow succeeds (Lab 1 in 2 msgs, Lab 2 in 3 msgs); details `instructor/dry-run-log.md` |
 | G3 Fresh free-account dry run → budgets + acceptance checklists | pending |
 | G4 Materials final, timed rehearsal | pending |
 
@@ -83,3 +83,5 @@ Lab-design tests (Gate 2): **naive prompt fails** ("fix the bug" / "make it work
 | 2026-10-24 | Slides (28), LABS, SETUP, README, cheat sheet, docs/CLAUDE.md | general-purpose (opus) | 126K | Largest output set; reused GithubWorkshop framework |
 | 2026-10-24 | Docs follow-ups ×2: Lab 1 ticket text (v2, then v3), Gate 3 tags | general-purpose (opus, resumed) | ~11K | Resume, not respawn; would have been one pass had the proxy test run before the docs dispatch |
 | 2026-10-24 | Naive-prompt proxy runs (Lab 1 ×3, Lab 2 ×1) | general-purpose (sonnet) | 4 × ~41K | Cheap design tests; Lab 1 v1 and v2 failed the "naive fails" test |
+| 2026-10-24 | Workflow proxy runs (Lab 1: 2 turns, Lab 2: 3 turns), me as the student | general-purpose (sonnet, resumed per turn) | 45K + 52K | Validated skeletons and budgets; led to the "skip #2 if already answered" LABS.md note |
+| 2026-10-24 | Habits 5/6 rewording; LABS skip-#2 note; dry-run log | inline | ~12K | |

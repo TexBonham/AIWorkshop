@@ -68,7 +68,7 @@ The ticket (also in [`labs/lab1-bug/README.md`](labs/lab1-bug/README.md)):
 1. **Start a new chat** in your `AI Workshop` Project.
 2. **Reproduce it yourself.** Open `index.html`. The Homework row is already filled in with the ticket's scores. Does Homework show 50.7%? Then open `tests.html` and **copy the red lines** (as text).
 3. **Message 1 of 5 — use skeleton #1.** Fill in what you did, what you saw (50.7%), what you expected (88.3%, and why), and paste the red test lines. Open `app.js` in your editor, select all, copy, and paste it in too. The skeleton says **don't write code yet**.
-4. **Message 2 of 5 — use skeleton #2.** Ask for its assumptions and a numbered plan. Read them. Is every step about the Homework average? Anything else is a refactor you didn't ask for.
+4. **Message 2 of 5 — use skeleton #2.** Ask for its assumptions and a numbered plan. Read them. Is every step about the Homework average? Anything else is a refactor you didn't ask for. **Already got assumptions and a plan in its first reply?** Skip this message and go straight to step 5; you just saved one.
 5. **Message 3 of 5 — use skeleton #3.** Correct any wrong assumption, approve the steps you agree with, ask for only the changed lines.
 6. **Apply the change.** Edit `app.js` in your editor, **save**, then **refresh** `tests.html`.
 7. **All green?** You're done. **Anything red?** **Message 4 of 5 — use skeleton #4**: paste exactly the red lines. Apply, save, refresh. Still red? **Message 5 of 5 — skeleton #4** again.
@@ -111,7 +111,7 @@ Every test currently passes. The code does what it was written to do; it just wa
    | 5 | | | |
 
 3. **Message 1 of 7 — use skeleton #5.** Paste the complaint word for word, your 5 examples, and `app.js`. Ask which examples the current code gets wrong, and what cases you haven't decided. No code yet.
-4. **Message 2 of 7 — use skeleton #2.** Ask for every assumption and a numbered plan. Read the assumptions carefully: this is where the real decisions are.
+4. **Message 2 of 7 — use skeleton #2.** Ask for every assumption and a numbered plan. Read the assumptions carefully: this is where the real decisions are. **If its first reply already asked you questions or listed assumptions**, skip this message: answer the questions in step 5 instead.
 5. **Message 3 of 7 — use skeleton #3.** Correct the assumptions that don't match your examples, approve the plan, ask for only the changed lines.
 6. **Apply and test.** Edit `app.js`, save, refresh `tests.html` (still all green?), then try your 5 examples in `index.html`.
 7. **The instructor reveals the acceptance checklist** on the projector (about 7 minutes into the lab). Run every query on it in `index.html`. Note which ones fail.
