@@ -22,4 +22,4 @@
 - Every test in `tests.html` is green.
 - You can point at the line you changed and say why it was wrong.
 
-Steps and the message budget are in [LABS.md](../../LABS.md#lab-1-the-bug-that-isnt-where-it-looks). Budget: **5 messages**.
+Steps and the message budget are in [LABS.md](../../LABS.md#lab-1-the-bug-that-isnt-where-it-looks). Budget: **3 messages**.

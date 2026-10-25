@@ -15,6 +15,8 @@ Rules for this chat:
 - Only change app.js unless I say otherwise.
 - When you give me code, show the exact lines that changed and why.
 - Never say something is fixed; tell me what to run to check.
+- If you run anything yourself, tell me exactly what you ran and what you did
+  not test.
 ```
 
 ## 1. Report a bug

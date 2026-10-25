@@ -9,6 +9,6 @@ Pick **one** brief. The other is your take-home.
 | **A. Class schedule builder** (standard) | You want the more practical, logic-heavy build | [brief-schedule.md](brief-schedule.md) |
 | **B. Game of Life** (lighter) | You are low on messages, or want the more visual result | [brief-life.md](brief-life.md) |
 
-Full steps are in [LABS.md](../../LABS.md#lab-3-build-from-a-brief). Budget: **5 messages** (spec and assumptions, approve the plan, build, up to two fix rounds).
+Full steps are in [LABS.md](../../LABS.md#lab-3-build-from-a-brief). Budget: **3 messages** (spec and assumptions, approve and build, one fix round).
 
-**Where the result goes:** Claude shows the page as an artifact. Download it (or copy the code into a file ending in `.html`) and open it in your browser. Test it there, not inside Claude.
+**Where the result goes:** Claude shows the page as an artifact with a **Download** button. Download it (or copy the code into a file ending in `.html`) and open it in your browser. Claude will probably say it tested the page itself. Good. Test it against **your** list anyway, in your browser.

@@ -10,7 +10,7 @@
 | Length / format | 72 min, in person, laptops required, attendees work solo |
 | AI tool | claude.ai free plan in the browser (no Claude Code, no API keys) |
 | Runtime | Plain HTML + JS; `index.html` = app, `tests.html` = green/red tests; attendees edit **only `app.js`** |
-| Lab lengths / message budgets | Lab 1: 12 min / ≤5 · Lab 2: 15 min / ≤7 · Lab 3: 18 min / ≤5 (targets until Gate 3 dry run) |
+| Lab lengths / message budgets | Lab 1: 12 min / ≤3 · Lab 2: 15 min / ≤4 · Lab 3: 18 min / ≤3 — **10 total; free limit hit on msg 11 in the 2026-10-24 dry run** |
 | Lab 3 briefs | A `brief-schedule.md` (standard) · B `brief-life.md` (lighter); unpicked one = take-home |
 | Slides | `docs/` on GitHub Pages (GithubWorkshop framework; poll/QR/config removed) |
 | Maintainer toolchain | Node ≥ 18 (`node --test`-free; plain scripts) + Python 3 stdlib for `scripts/verify_labs.py` |
@@ -71,7 +71,7 @@ Lab-design tests (Gate 2): **naive prompt fails** ("fix the bug" / "make it work
 |---|---|
 | G1 Plan sign-off | ✅ 2026-10-24 |
 | G2 Labs built, design tests pass, `verify_labs.py` green | ✅ 2026-10-24 — proxy design tests: naive fails (Lab 1 v3, Lab 2), workflow succeeds (Lab 1 in 2 msgs, Lab 2 in 3 msgs); details `instructor/dry-run-log.md` |
-| G3 Fresh free-account dry run → budgets + acceptance checklists | pending |
+| G3 Fresh free-account dry run → budgets + acceptance checklists | ✅ 2026-10-24 — all 4 labs in 9 msgs / ~28 min / 0 fix rounds; limit hit on msg 11; budgets set to 3/4/3; see `instructor/dry-run-log.md` |
 | G4 Materials final, timed rehearsal | pending |
 
 ## Session Cost Log
@@ -85,3 +85,5 @@ Lab-design tests (Gate 2): **naive prompt fails** ("fix the bug" / "make it work
 | 2026-10-24 | Naive-prompt proxy runs (Lab 1 ×3, Lab 2 ×1) | general-purpose (sonnet) | 4 × ~41K | Cheap design tests; Lab 1 v1 and v2 failed the "naive fails" test |
 | 2026-10-24 | Workflow proxy runs (Lab 1: 2 turns, Lab 2: 3 turns), me as the student | general-purpose (sonnet, resumed per turn) | 45K + 52K | Validated skeletons and budgets; led to the "skip #2 if already answered" LABS.md note |
 | 2026-10-24 | Habits 5/6 rewording; LABS skip-#2 note; dry-run log | inline | ~12K | |
+| 2026-10-24 | Gate 3 dry run (instructor drove the free account; I logged, checked outputs under Node/jsdom, wrote two page harnesses) | inline | ~40K | Reading two generated pages (~1100 lines) dominated |
+| 2026-10-24 | Apply dry-run findings to deck, LABS, SETUP, cheat sheet (budgets 3/4/3, habit 6, no-meter slide, download notes) | general-purpose (opus, resumed) | ~39K | Fourth resume of the docs agent; still cheaper than a fresh spawn |

@@ -15,7 +15,7 @@ Tick each box as you go. Nothing to install, and no coding experience with AI to
 - [ ] **Send one test message**, e.g. "Hello". If you get a reply, your account works.
 - [ ] **Look for Projects** in the left sidebar. If you see it, great. If you don't, that's fine: the labs have a fallback.
 
-Please don't use up your messages the morning of the workshop. Free usage runs on a rolling 5-hour window, and the labs need most of one.
+Please don't use up your messages the morning of the workshop. The labs need about 10 messages. Free usage runs on a rolling 5-hour window, there is no usage meter, and starting a new chat does not reset it.
 
 ### 2. A plain-text editor
 
@@ -49,9 +49,9 @@ You'll edit one JavaScript file per lab. Any editor that saves **plain text** wo
 - [ ] **Turn on GitHub Pages.** Settings → **Pages** → Source: **Deploy from a branch** → Branch: `main`, folder: `/docs` → **Save**. After a minute the slides are live at <https://texbonham.github.io/AIWorkshop/>.
 - [ ] **Send attendees to Part A**, stressing the phone verification and "do it days ahead".
 - [ ] **Prepare the demo** ("two ways just-ask fails", slides 6 and 7) on your paid account: the tip-splitter "fix the bug" and "add X" requests. Save screenshots of both transcripts in `instructor/demo/` as the fallback.
-- [ ] **Run the fresh-account dry run (Gate 3).** A brand-new free account, at a weekday afternoon hour. Run every lab exactly as LABS.md says. Record message counts in `instructor/dry-run-log.md`. Confirm Projects and artifact download work on free.
+- [x] **Run the fresh-account dry run (Gate 3).** Done 2026-10-24 (weekday afternoon, fresh free account). Results in `instructor/dry-run-log.md`: Projects and artifact download work on free; no usage meter.
 - [ ] **Write the acceptance checklists** from what the dry run achieved: `instructor/checklists/lab2.md`, `lab3-schedule.md`, `lab3-life.md`. These are shown on the projector only; they are not in the public deck.
-- [ ] **Update the budgets** if the dry run changed them: slide 3, the lab slides, LABS.md, the cheat sheet.
+- [ ] **Budgets are 3/4/3 from the dry run**; re-measure if Anthropic changes the free tier (slide 3, the lab slides, LABS.md, the cheat sheet).
 
 ### A few days before
 

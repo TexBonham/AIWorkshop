@@ -1,6 +1,6 @@
 # AI Workshop — plan (v1, 2026-10-24)
 
-Status: **signed off 2026-10-24 (Gate 1)**; labs and materials built the same day. Adjust freely; the dry run (Gate 3) will rewrite the budgets and acceptance checklists.
+Status: **signed off 2026-10-24 (Gate 1)**; labs and materials built the same day; Gate 3 dry run done the same day (see `instructor/dry-run-log.md`, gitignored). Adjust freely; the dry run (Gate 3) will rewrite the budgets and acceptance checklists.
 
 ## 1. One-paragraph summary
 
@@ -18,7 +18,7 @@ A 72-minute, hands-on, in-person workshop for undergraduates on **directing an A
 | Distribution | Public repo `TexBonham/AIWorkshop`; attendees **Download ZIP** (clone optional) |
 | Slides | `docs/` on GitHub Pages, same framework as GithubWorkshop (poll/QR removed) |
 | Labs | 3 mini-labs: bug (12 min), complaint (15 min), build (18 min) |
-| Message budget | Target ≤ 17 attendee messages total across all labs in one 5-hour window — **to be measured at Gate 3** |
+| Message budget | **10 total (3 / 4 / 3)**. Measured 2026-10-24 on a fresh free account: all four labs took 9 messages; the limit hit on the 11th. |
 | Closing | Recap + take-home (the Lab 3 brief they didn't pick). No poll. |
 
 ## 3. Agenda
@@ -61,7 +61,7 @@ Every lab has two **lab-design tests** that must pass before the dry run (Gate 2
 - **Naive fails:** pasting `app.js` with "fix the bug" / "make it work" / "build this" does not produce a passing result in one shot.
 - **Workflow succeeds:** following the LABS.md steps passes within the lab's message budget.
 
-### Lab 1 — The bug that isn't where it looks (12 min, ≤ 5 messages)
+### Lab 1 — The bug that isn't where it looks (12 min, ≤ 3 messages)
 
 | Property | Design |
 |---|---|
@@ -69,12 +69,12 @@ Every lab has two **lab-design tests** that must pass before the dry run (Gate 2
 | App | **Grade calculator**: weighted categories, scores as plain numbers or `earned/possible`, optional drop-lowest, letter grade |
 | Design rule | The code is internally consistent; the bug is a convention that is only wrong against the syllabus in the ticket. Reading the code alone cannot tell you which convention was intended. A few correct-but-odd-looking blocks are pinned by visible tests so "cleaning them up" goes red. |
 | Ticket | `labs/lab1-bug/README.md` |
-| Spend plan | 1 brief+symptom+failing test output → 1 plan/assumptions → 1 apply → ≤ 2 fix rounds |
+| Spend plan | 1 brief+symptom+failing test output → 1 approve (skip the plan request if the first reply already gave one) → ≤ 1 fix round |
 | Done when | `tests.html` all green; attendee can say which line changed and why |
 
 Specifics (which line, the decoys, the traps) are in `instructor/lab-designs.md`, not here: this file is public.
 
-### Lab 2 — The complaint (15 min, ≤ 7 messages)
+### Lab 2 — The complaint (15 min, ≤ 4 messages)
 
 | Property | Design |
 |---|---|
@@ -83,18 +83,18 @@ Specifics (which line, the decoys, the traps) are in `instructor/lab-designs.md`
 | Complaint | `labs/lab2-complaint/README.md` |
 | Design rule | The complaint is honestly ambiguous between several reasonable search behaviours; only one matches what the events office meant, and the obvious fix breaks a visible test. The dataset is seeded so each wrong reading shows up in the results. |
 | Flow | Read complaint → write a spec as 5 example queries with expected results → ask Claude for assumptions + plan, no code → correct, approve → implement → run tests → **acceptance checklist shown by the instructor** after ~7 min → fix gaps → add a test for the new behaviour |
-| Spend plan | 1 brief+spec → 1 assumptions/plan → 1 implement → ≤ 2 fixes → 1 add tests → 1 slack |
+| Spend plan | 1 complaint+examples → 1 decisions+approve → ≤ 1 fix after the checklist → 1 add tests |
 | Done when | Visible tests green + acceptance checklist queries all return the expected results |
 
 The owner's intent and the acceptance checklist are in `instructor/checklists/lab2.md` (gitignored).
 
-### Lab 3 — Build from a brief (18 min, ≤ 5 messages), two briefs
+### Lab 3 — Build from a brief (18 min, ≤ 3 messages), two briefs
 
 | Property | Design |
 |---|---|
 | Teaches | Habits 1, 4, 5, 9 end to end: brief → spec → assumptions → plan → one build → checklist → ≤ 2 fixes |
 | Output | A single-file HTML artifact built inside Claude; attendee downloads/copies it and opens it locally |
-| Spend plan | 1 spec+assumptions request → 1 plan approval → **1 build** → ≤ 2 fix rounds |
+| Spend plan | 1 spec+assumptions request → 1 approve + **build in one go** → ≤ 1 fix round |
 | Done when | Acceptance checklist (written at Gate 3) passes in the attendee's own browser |
 
 **Brief A (standard pick): Class schedule builder.** Framed as an advisor's email. Add courses (name, days, start, end, optional location), weekly grid, conflicts highlighted and listed, remove a course, survives reload. Deliberately unspecified: back-to-back classes, 12h vs 24h input, Saturday classes, partial overlaps, the same course entered twice, grid hours.

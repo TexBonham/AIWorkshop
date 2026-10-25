@@ -23,4 +23,4 @@ Notice: **every test currently passes.** Nothing is "broken" in the sense of Lab
 - The acceptance checklist the instructor reveals mid-lab all passes.
 - Existing tests still pass, and there is at least one new test for the new behaviour.
 
-Steps and the message budget are in [LABS.md](../../LABS.md#lab-2-the-complaint). Budget: **7 messages**.
+Steps and the message budget are in [LABS.md](../../LABS.md#lab-2-the-complaint). Budget: **4 messages**.

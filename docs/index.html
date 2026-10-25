@@ -54,26 +54,26 @@
 <section class="slide">
   <h2>You have a message budget</h2>
   <ul>
-    <li>Free Claude usage runs on a <strong>rolling 5-hour window</strong>. Anthropic doesn't publish the exact free count.</li>
-    <li>So today every message is planned:</li>
+    <li>The free limit is on <strong>work</strong>, not a fixed count: long chats, big pastes and page builds cost more</li>
+    <li>It's a <strong>rolling 5-hour window</strong>, so a new chat does <strong>not</strong> reset it</li>
+    <li>In our dry run on a fresh free account, the limit hit on the <strong>11th</strong> message</li>
   </ul>
   <div class="table-wrap">
   <table class="simple">
-    <tr><th>Lab</th><th>Minutes</th><th>Messages (target)</th></tr>
-    <tr><td>Lab 1 · the bug</td><td>12</td><td>≤ 5</td></tr>
-    <tr><td>Lab 2 · the complaint</td><td>15</td><td>≤ 7</td></tr>
-    <tr><td>Lab 3 · build from a brief</td><td>18</td><td>≤ 5</td></tr>
+    <tr><th>Lab</th><th>Minutes</th><th>Messages</th></tr>
+    <tr><td>Lab 1 · the bug</td><td>12</td><td>≤ 3</td></tr>
+    <tr><td>Lab 2 · the complaint</td><td>15</td><td>≤ 4</td></tr>
+    <tr><td>Lab 3 · build from a brief</td><td>18</td><td>≤ 3</td></tr>
   </table>
   </div>
   <p class="lead">Every "still broken, try again" is a message you don't get back.</p>
-  <p class="small">Targets, being confirmed in a dry run on a fresh free account.</p>
   <aside class="notes">
     <ul>
-      <li>[~1:15] Don't quote a number of free messages; we don't know it and it changes. Say "rolling 5-hour window, count not published".</li>
-      <li>After the Gate 3 dry run: update these numbers here, in LABS.md, and on the cheat sheet.</li>
+      <li>[~1:15] Measured once, 2026-10-24, weekday afternoon, fresh free account: roughly 10 lab-sized messages. All labs took 9 messages, zero fix rounds; the limit hit on the 11th. Say "roughly 10, measured once", never promise a number.</li>
+      <li>No usage meter on a free account, and in the dry run no warning came at all: the 11th reply just stopped mid-sentence. Tell them to count.</li>
       <li>Run out mid-lab? Pair with a neighbour. That's the plan, not a failure.</li>
     </ul>
-  </aside>
+  </aside
 </section>
 
 <section class="slide lab" data-at="2:00">
@@ -90,7 +90,7 @@
   <aside class="notes">
     <ul>
       <li>[2:00–3:00] Do it live on the projector once. Show where the ZIP unzipped and where prompts.md is.</li>
-      <li>Projects location ("left sidebar") and the instructions field wording [confirm at Gate 3].</li>
+      <li>Projects are in the left sidebar; the Project instructions field takes skeleton #0 as-is (confirmed in the dry run).</li>
       <li>Most people will finish this during the next section; that's fine. Helpers watch for anyone with no claude.ai login.</li>
       <li>Fallback costs nothing extra: #0 just rides along in message 1 of each lab.</li>
     </ul>
@@ -218,12 +218,13 @@ What I expected: $24.00 each ((60 + 12) / 3)</code></pre>
   <h2>Steps you can check</h2>
   <div class="cols">
     <div class="card"><h3><span class="habit">5</span> One intention per request</h3><p>Size the step to what you can still check: a line in a small file, a tested feature in a big one. Forbid changes you didn't ask for. "Show me only the changed lines."</p></div>
-    <div class="card"><h3><span class="habit">6</span> Verify before you believe</h3><p>"Fixed" is a claim, not evidence. <strong>Your</strong> tests or checklist decide, at the point where checking is cheap. Report the real result back.</p></div>
+    <div class="card"><h3><span class="habit">6</span> Verify before you believe</h3><p>It may run its own tests, and say so. Ask what it ran, and read what it says it did <strong>not</strong> test. <strong>Your</strong> checklist, in your browser, decides.</p></div>
   </div>
   <p class="small">Skeletons <span class="skel">#3</span> approve steps 1–3 only · <span class="skel">#4</span> report back · <span class="skel">#8</span> fix only these</p>
   <aside class="notes">
     <ul>
       <li>[~9:40] Every lab has a tests page or a checklist. Its verdict beats the assistant's.</li>
+      <li>Free Claude has a code sandbox and uses it unprompted: in the dry run it ran the Lab 2 examples itself and drove a headless browser against its Lab 3 build. Useful, but its tests check its reading of the spec. Yours check yours. Skeleton #0 now asks it to say what it ran and what it did not test.</li>
       <li>Scale: today a step is a line and you check after every edit, because the files are tiny. On a real project a step is a feature behind a test, and the check is one full run at the end of a stage. The size changes; "one intention" and "something other than the assistant decides" never do.</li>
       <li>If it says "fixed" and the test is red, don't argue in prose: paste the red lines (#4).</li>
     </ul>
@@ -253,7 +254,7 @@ alternative. Then tell me which you'd pick and why. No code.</code></pre>
   <h2>Keep chats short, spend on purpose</h2>
   <div class="cols">
     <div class="card"><h3><span class="habit">8</span> Fresh chat when context rots</h3><p>Long chats drift and cost more per message. <strong>New lab = new chat.</strong> Your Project brief comes with you.</p></div>
-    <div class="card"><h3><span class="habit">9</span> Budget your messages</h3><p>Each lab has a spend plan. LABS.md says <em>"Message 2 of 5"</em> on every step that sends one.</p></div>
+    <div class="card"><h3><span class="habit">9</span> Budget your messages</h3><p>Each lab has a spend plan. LABS.md says <em>"Message 2 of 3"</em> on every step that sends one.</p></div>
   </div>
   <p class="lead">Plan → approve → one change → test → report back.</p>
   <aside class="notes">
@@ -266,7 +267,7 @@ alternative. Then tell me which you'd pick and why. No code.</code></pre>
 
 <!-- ===== Section 2: Lab 1 ===== -->
 <section class="slide lab" data-section="2 · Lab 1: The bug" data-at="14:00">
-  <div class="kicker">Hands-on · Lab 1 · 12 min · ≤5 messages</div>
+  <div class="kicker">Hands-on · Lab 1 · 12 min · ≤3 messages</div>
   <h2>The bug that isn't where it looks</h2>
   <div class="ticket">
     <p><strong>#41 · Homework average comes out as 50.7%</strong></p>
@@ -275,9 +276,9 @@ alternative. Then tell me which you'd pick and why. No code.</code></pre>
   </div>
   <ol>
     <li>New chat in your Project. Reproduce it in <code>index.html</code>; open <code>tests.html</code>, copy the red lines</li>
-    <li>Msg 1 <span class="skel">#1</span> symptom + red lines + <code>app.js</code> · Msg 2 <span class="skel">#2</span> assumptions + plan</li>
-    <li>Msg 3 <span class="skel">#3</span> approve → edit <code>app.js</code>, save, refresh <code>tests.html</code></li>
-    <li>Still red? Msg 4–5 <span class="skel">#4</span> paste the red lines back</li>
+    <li>Msg 1 <span class="skel">#1</span> symptom + red lines + <code>app.js</code>, no code yet</li>
+    <li>Msg 2 <span class="skel">#3</span> correct and approve → edit <code>app.js</code>, save, refresh <code>tests.html</code></li>
+    <li>Still red? Msg 3 <span class="skel">#4</span> paste the red lines back</li>
     <li>Done: all green, and you can point at the line you changed</li>
   </ol>
   <p class="labfoot">Full steps in <a href="https://github.com/TexBonham/AIWorkshop/blob/main/LABS.md#lab-1-the-bug-that-isnt-where-it-looks">LABS.md</a> · ticket in <code>labs/lab1-bug/README.md</code></p>
@@ -297,7 +298,7 @@ alternative. Then tell me which you'd pick and why. No code.</code></pre>
   <div class="kicker">Debrief · Lab 1</div>
   <h1>Where was the bug?</h1>
   <ul>
-    <li>Who got all green in three messages or fewer? What did you paste in message 1?</li>
+    <li>Who got all green in two messages? What did you paste in message 1?</li>
     <li>Did anyone's assistant rewrite code that wasn't broken? Did it say "fixed"?</li>
     <li>Did a <em>different</em> test go red after the first fix? What did you send back?</li>
   </ul>
@@ -330,7 +331,7 @@ alternative. Then tell me which you'd pick and why. No code.</code></pre>
 
 <!-- ===== Section 4: Lab 2 ===== -->
 <section class="slide lab" data-section="4 · Lab 2: The complaint" data-at="30:00">
-  <div class="kicker">Hands-on · Lab 2 · 15 min · ≤7 messages</div>
+  <div class="kicker">Hands-on · Lab 2 · 15 min · ≤4 messages</div>
   <h2>The complaint</h2>
   <div class="ticket">
     <p class="from">From a student, via the feedback form</p>
@@ -338,12 +339,12 @@ alternative. Then tell me which you'd pick and why. No code.</code></pre>
   </div>
   <ol>
     <li>New chat. <strong>Before opening Claude:</strong> write 5 example searches with expected results</li>
-    <li>Msg 1 <span class="skel">#5</span> complaint + examples + <code>app.js</code> · Msg 2 <span class="skel">#2</span> · Msg 3 <span class="skel">#3</span></li>
-    <li>Apply, refresh <code>tests.html</code>, try your 5 examples in <code>index.html</code></li>
-    <li>Checklist on the projector → Msg 4–5 <span class="skel">#8</span> fix only what fails</li>
-    <li>Msg 6: ask for 2 tests for the new behaviour, paste them into <code>tests.js</code></li>
+    <li>Msg 1 <span class="skel">#5</span> complaint + <strong>all five</strong> examples filled in + <code>app.js</code></li>
+    <li>Msg 2 <span class="skel">#3</span> your decisions → apply, refresh <code>tests.html</code>, try your examples</li>
+    <li>Checklist on the projector → only if something fails, Msg 3 <span class="skel">#8</span></li>
+    <li>Msg 4: ask for 2 tests for the new behaviour, paste them into <code>tests.js</code></li>
   </ol>
-  <p class="labfoot">Full steps in <a href="https://github.com/TexBonham/AIWorkshop/blob/main/LABS.md#lab-2-the-complaint">LABS.md</a> · Msg 7 is spare</p>
+  <p class="labfoot">Full steps in <a href="https://github.com/TexBonham/AIWorkshop/blob/main/LABS.md#lab-2-the-complaint">LABS.md</a></p>
   <aside class="notes">
     <ul>
       <li>[30:00–45:00] Stress step 1: pen and paper (or a text file) first. No examples, no message 1.</li>
@@ -390,12 +391,16 @@ alternative. Then tell me which you'd pick and why. No code.</code></pre>
   <p class="lead">Brief → spec → acceptance checks → <strong>one</strong> build → test locally → fix only what fails</p>
   <div class="cols">
     <div class="card"><h3>Why one build</h3><p>A whole page is a long reply. Each rebuild costs far more of your budget than a short answer. Settle the spec first, then build once.</p></div>
-    <div class="card"><h3>Test it where it runs</h3><p>Download the artifact, or copy its code into a file ending in <code>.html</code>. Open it in your browser and tick your list.</p></div>
+    <div class="card"><h3>Test it where it runs</h3><p>The build arrives as an artifact with a <strong>Download</strong> button. Open the file in your browser and tick your list.</p></div>
   </div>
+  <ul>
+    <li>It will test its own build. Good. In Lab 2 its checks passed while one of your decisions was still open.</li>
+  </ul>
   <p class="small">Skeletons <span class="skel">#7</span> build from a brief · <span class="skel">#3</span> approve · <span class="skel">#8</span> fix round</p>
   <aside class="notes">
     <ul>
-      <li>[~47:00] An <em>artifact</em> is the panel where Claude shows a whole file. Show the download / copy button on the projector.</li>
+      <li>[~47:00] An <em>artifact</em> is the panel where Claude shows a whole file. Show its Download button on the projector. In the dry run both builds arrived as downloadable artifacts.</li>
+      <li>Free accounts get a code sandbox: in the dry run it ran a headless browser against its own build unprompted. Its tests check its reading of the brief; theirs check theirs.</li>
       <li>Fix rounds name the failing checks only. "Make it better" restarts the whole page.</li>
     </ul>
   </aside>
@@ -403,23 +408,23 @@ alternative. Then tell me which you'd pick and why. No code.</code></pre>
 
 <section class="slide" data-at="48:30">
   <div class="kicker">30 seconds</div>
-  <h2>Check your usage meter</h2>
-  <ol>
-    <li>In claude.ai, look at the usage indicator (or your settings)</li>
-    <li>Plenty left? Pick <strong>brief A</strong></li>
-    <li>Nearly out? Pick <strong>brief B</strong>, or pair with a neighbour</li>
-  </ol>
+  <h2>Count your messages</h2>
+  <ul>
+    <li>There is <strong>no usage meter</strong> on a free account, and you may get no warning: the reply just stops</li>
+    <li>Sent <strong>7 or more</strong> messages today? Pick <strong>brief B</strong></li>
+    <li>Fewer? Pick <strong>brief A</strong></li>
+  </ul>
   <aside class="notes">
     <ul>
-      <li>[48:30] Show where the meter is on the instructor's screen. Its exact location may move [confirm at Gate 3].</li>
+      <li>[48:30] Hands up: who has sent 7 or more messages today, including outside the workshop? Those people take B or pair up.</li>
       <li>Pairing plan: one laptop drives, the other person writes the acceptance checks.</li>
     </ul>
-  </aside>
+  </aside
 </section>
 
 <!-- ===== Section 6: Lab 3 ===== -->
 <section class="slide lab" data-section="6 · Lab 3: Build from a brief" data-at="49:00">
-  <div class="kicker">Hands-on · Lab 3 · 18 min · ≤5 messages</div>
+  <div class="kicker">Hands-on · Lab 3 · 18 min · ≤3 messages</div>
   <h2>Build from a brief: pick one</h2>
   <div class="cols">
     <div class="card"><h3>A · Class schedule builder</h3><p><strong>Standard pick.</strong> An advising office wants a weekly grid that shows which courses collide.</p><p><code>labs/lab3-build/brief-schedule.md</code></p></div>
@@ -435,21 +440,21 @@ alternative. Then tell me which you'd pick and why. No code.</code></pre>
 </section>
 
 <section class="slide lab">
-  <div class="kicker">Hands-on · Lab 3 · 18 min · ≤5 messages</div>
+  <div class="kicker">Hands-on · Lab 3 · 18 min · ≤3 messages</div>
   <h2>Spec first, build once</h2>
   <ol>
     <li>On paper: answer "What the brief does not say", then write 8–12 acceptance checks</li>
     <li>New chat. Msg 1 <span class="skel">#7</span> brief + checks, no build yet</li>
     <li>Msg 2 <span class="skel">#3</span> correct its assumptions, approve → <strong>one</strong> build</li>
-    <li>Download it (or copy into a <code>.html</code> file), open it in your browser, tick your list</li>
-    <li>Up to 2 rounds of <span class="skel">#8</span>: only the checks that failed</li>
+    <li><strong>Download</strong> the artifact, open it in your browser, tick your list</li>
+    <li>Msg 3 <span class="skel">#8</span> one fix round: only the checks that failed</li>
   </ol>
-  <p class="labfoot">Full steps in <a href="https://github.com/TexBonham/AIWorkshop/blob/main/LABS.md#lab-3-build-from-a-brief">LABS.md</a> · one message is spare</p>
+  <p class="labfoot">Full steps in <a href="https://github.com/TexBonham/AIWorkshop/blob/main/LABS.md#lab-3-build-from-a-brief">LABS.md</a></p>
   <aside class="notes">
     <ul>
-      <li>[~50:00–65:00] Push the paper step hard: 5 minutes of writing saves 3 messages.</li>
+      <li>[~50:00–65:00] Push the paper step hard: 5 minutes of writing saves messages. Dry run: 2 messages each, A in 10 min, B in 6 min.</li>
       <li>Walk the room. "Make it nicer" is not a check; ask what they would click to test it.</li>
-      <li>Snags: artifact won't download → copy the code into a new file ending .html (download/copy button wording [confirm at Gate 3]). TextEdit → Format → Make Plain Text first.</li>
+      <li>Snags: artifact won't download → copy the code into a new file ending .html; TextEdit → Format → Make Plain Text first. Reply died mid-sentence → probably the limit; in the dry run the artifact was already there to download.</li>
       <li>[~63:00] Two minutes to self-check.</li>
     </ul>
   </aside>

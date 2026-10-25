@@ -16,7 +16,7 @@ Served from `/docs` on `main` at https://texbonham.github.io/AIWorkshop/. No bui
 | Thing | Markup |
 |---|---|
 | Section start | First slide of a section carries `data-section="N · Title"` (HUD label for it and every later slide) and `data-at="mm:ss"` (planned start, shown next to the clock). Usually a `.divider`; Lab 1/2/3 sections start on their `.lab` slide instead. |
-| Timed slide | Any slide may carry `data-at` alone (Lab 0 at 2:00, checklist reveal at 37:00, usage meter at 48:30, Lab 3 self-check at 65:00) |
+| Timed slide | Any slide may carry `data-at` alone (Lab 0 at 2:00, checklist reveal at 37:00, "count your messages" at 48:30, Lab 3 self-check at 65:00) |
 | Lab slide | `class="slide lab"`, `.kicker` "Hands-on · Lab N · X min · ≤M messages", ticket in `<div class="ticket">` (verbatim from the lab README), short `<ol>`, `.labfoot` linking the `LABS.md` anchor |
 | Demo transcript | `<div class="chat">` with `.you` / `.ai` bubbles, each starting `<span class="who">` |
 | Habit number / skeleton ref | `<span class="habit">N</span>` · `<span class="skel">#K</span>` |
@@ -58,11 +58,11 @@ Clicks on links, buttons, form fields, `pre`, notes and the HUD don't navigate; 
 |---:|---|---:|
 | 14 | Section 0: Welcome (title, agenda, budget, Lab 0) | 4 |
 | 100 | Section 1: How to work with an AI assistant (divider, 2 demo slides, 6 habit slides) | 9 |
-| 266 | Section 2: Lab 1 | 1 |
-| 294 | Section 3: Debrief Lab 1 (questions, complaint → spec) | 2 |
-| 330 | Section 4: Lab 2 (lab, checklist reveal) | 2 |
-| 370 | Section 5: Debrief Lab 2 (questions, brief → build, usage meter) | 3 |
-| 419 | Section 6: Lab 3 (pick a brief, steps, self-check) | 3 |
-| 470 | Section 7: Wrap-up (habits recap, take-home, beyond the browser, thanks) | 4 |
+| 268 | Section 2: Lab 1 | 1 |
+| 296 | Section 3: Debrief Lab 1 (questions, complaint → spec) | 2 |
+| 332 | Section 4: Lab 2 (lab, checklist reveal) | 2 |
+| 372 | Section 5: Debrief Lab 2 (questions, brief → build, count your messages) | 3 |
+| 425 | Section 6: Lab 3 (pick a brief, steps, self-check) | 3 |
+| 476 | Section 7: Wrap-up (habits recap, take-home, beyond the browser, thanks) | 4 |
 
 Total 28 slides. Read a section with `Read(docs/index.html, offset=<line>, limit=80)`.

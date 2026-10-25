@@ -216,7 +216,7 @@
         <tr><td class="n">3</td><td><strong>Reproduce, paste real output</strong></td><td>Exact wrong output, red test lines. Text, not screenshots.</td></tr>
         <tr><td class="n">4</td><td><strong>Plan + assumptions before code</strong></td><td>"List your assumptions and a plan. Don't write code yet." Correct, then approve.</td></tr>
         <tr><td class="n">5</td><td><strong>One intention per request</strong></td><td>Step sized to what you can check. No changes you didn't ask for.</td></tr>
-        <tr><td class="n">6</td><td><strong>Verify before you believe</strong></td><td>"Fixed" is a claim, not evidence. Tests or checklist decide. Report the real result.</td></tr>
+        <tr><td class="n">6</td><td><strong>Verify before you believe</strong></td><td>It may run its own tests. Ask what it ran and what it did <em>not</em> test. Your checklist, in your browser, decides.</td></tr>
         <tr><td class="n">7</td><td><strong>Read the diff, own the decision</strong></td><td>You're the reviewer. Make it argue against its own choice.</td></tr>
         <tr><td class="n">8</td><td><strong>Fresh chat when context rots</strong></td><td>Long chats drift and cost more. New task = new chat.</td></tr>
         <tr><td class="n">9</td><td><strong>Budget your messages</strong></td><td>Plan every message. Each "still broken" costs one.</td></tr>
@@ -229,7 +229,7 @@
       <div class="wrap">
       <table>
         <tr><th>#</th><th>Skeleton</th><th>Use it to…</th></tr>
-        <tr><td class="n">0</td><td>Project brief</td><td>set the rules once: plan first, smallest change, only <code>app.js</code>, never claim "fixed"</td></tr>
+        <tr><td class="n">0</td><td>Project brief</td><td>set the rules once: plan first, smallest change, only <code>app.js</code>, never claim "fixed", say what it ran and didn't test</td></tr>
         <tr><td class="n">1</td><td>Report a bug</td><td>give what you did / saw / expected + red test lines. No code yet.</td></tr>
         <tr><td class="n">2</td><td>Assumptions + plan</td><td>get every assumption and a numbered plan before any change</td></tr>
         <tr><td class="n">3</td><td>Approve (and correct)</td><td>fix wrong assumptions, approve specific steps, see only changed lines</td></tr>
@@ -242,7 +242,7 @@
       </div>
       <p class="muted">Full text: <code>labs/prompts.md</code> in the ZIP.</p>
       <h2>Budgets today</h2>
-      <p class="muted">Lab 1 ≤ 5 · Lab 2 ≤ 7 · Lab 3 ≤ 5 messages (targets). New lab = new chat in your <code>AI Workshop</code> Project.</p>
+      <p class="muted">Lab 1 ≤ 3 · Lab 2 ≤ 4 · Lab 3 ≤ 3 messages (10 total, from a dry run). No usage meter on free: count your messages. New lab = new chat in your <code>AI Workshop</code> Project; a new chat does not reset the limit.</p>
     </section>
   </div>
 
@@ -252,8 +252,9 @@
     <tr><th>Problem</th><th>Fix</th></tr>
     <tr><td><code>tests.html</code> still red after refresh</td><td>Did you <strong>save</strong> <code>app.js</code>? Is it the right file (the one in this lab's folder)?</td></tr>
     <tr><td>Claude says "fixed" but tests are red</td><td>Paste the red lines back with skeleton <strong>#4</strong>. Don't argue in prose.</td></tr>
-    <tr><td>Out of messages</td><td>A new chat won't help: the budget is per account. Pair with a neighbour, or pick brief <strong>B</strong> for Lab 3.</td></tr>
-    <tr><td>Artifact won't download</td><td>Copy the code into a new file ending in <code>.html</code>, then double-click it.</td></tr>
+    <tr><td>Out of messages</td><td>A new chat won't help: the limit is per account, over a rolling 5-hour window. Pair with a neighbour, or pick brief <strong>B</strong> for Lab 3.</td></tr>
+    <tr><td>Reply stopped mid-sentence</td><td>You may have hit the limit. The file it already produced is still downloadable.</td></tr>
+    <tr><td>Artifact won't download</td><td>Use the artifact's <strong>Download</strong> button. Still nothing? Copy the code into a new file ending in <code>.html</code>, then double-click it.</td></tr>
     <tr><td>TextEdit saved rich text</td><td><strong>Format → Make Plain Text</strong>, then save again.</td></tr>
     <tr><td>Notepad saved <code>app.js.txt</code></td><td><strong>Save As</strong> → <em>Save as type:</em> <strong>All files</strong>.</td></tr>
     <tr><td>No Projects in claude.ai</td><td>Paste skeleton <strong>#0</strong> at the top of the first message of each chat.</td></tr>
