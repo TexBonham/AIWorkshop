@@ -43,6 +43,8 @@ Lab-design tests (Gate 2): **naive prompt fails** ("fix the bug" / "make it work
 
 ## Agenda (slides follow this)
 
+Lab slots are deliberately longer than the dry run suggests (28 min of labs with no student thinking time); keep 12 / 15 / 18.
+
 | Min | Section | Format |
 |---:|---|---|
 | 0–3 | Welcome, budget warning, open the ZIP | slides |
